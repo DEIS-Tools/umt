@@ -9,6 +9,6 @@ class Edge {
 		this.start = startVertex;
 		this.end   = endVertex;
 		this.type  = type ? type : 0;
-		startVertex.AddEdge(this);
+		startVertex.addEdge(this);
 	}
 }

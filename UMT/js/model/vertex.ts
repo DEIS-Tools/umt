@@ -10,10 +10,10 @@ class Vertex {
 		this.outgoingEdges = [];
 		this.type = type ? type : 0;
 	}
-	AddEdge(edge: Edge) {
-		outgoingEdges.push(edge);
+	addEdge(edge: Edge) {
+		this.outgoingEdges.push(edge);
 	}
-	RemoveEdge(edge: Edge) {
+	removeEdge(edge: Edge) {
 		const index = this.outgoingEdges.indexOf(edge, 0);
 		if (index > -1)
 		   this.outgoingEdges.splice(index, 1);

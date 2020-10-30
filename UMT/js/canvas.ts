@@ -4,7 +4,7 @@ var triangle      = calcTriangle(40,100);
 var circle        = calcCircle(40,50,{x:50,y:50});
 var recognizableShapes = [squarre_shape, triangle, circle];
 
-class CanvasDrawer {
+class CanvasStylusRecognizer {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     drawer: ShapeDrawer;
@@ -22,8 +22,8 @@ class CanvasDrawer {
         this.canvas.height = window.innerHeight;
         this.canvas.width = window.innerWidth;
     }
-    load() {
-        this.canvas = document.querySelector("#draw");
+    load(canvas: HTMLCanvasElement) {
+        this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d");
         this.resize_func();
         this.drawer = new ShapeDrawer(this.ctx, this.performRecognition);
@@ -69,11 +69,11 @@ class CanvasDrawer {
         this.drawer.clearCanvas(this.canvas.width, this.canvas.height);
         this.drawer.drawShape(recognizableShapes[shape.idx], offset);
     }
-};
-
-const cd = new CanvasDrawer();
+}
+const cd = new CanvasStylusRecognizer();
+window.addEventListener("resize", () => { cd.resize_func(); });
 window.addEventListener("load", () => {
-    cd.load();
+    cd.load(document.querySelector("#draw"));
     // Disable multitouch things 
     // TODO: This should be removed, when more advanced features are in.
     cd.canvas.ontouchstart = (e: any) => {
@@ -81,4 +81,6 @@ window.addEventListener("load", () => {
             return false;
     };
 });
-window.addEventListener("resize", () => { cd.resize_func(); });
+
+
+

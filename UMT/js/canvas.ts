@@ -82,5 +82,43 @@ window.addEventListener("load", () => {
     };
 });
 
-
-
+// TODO: Research what pattern for an editor would be good to use.
+// [GeneralEditorClass]
+//          ↓
+//   [ShapeGenerator]
+//   [DrawingUpdater]
+//   [DrawingEditor]
+//
+//  Vocabulary:
+//    - Drawing
+//        "The act of drawing with the stylus, or the shape drawn by using a stylus"
+//    - Rendering
+//        "The rendering of the styled model instance"
+//    - Model Instance
+//        "The Model datastructure instance, that is currently being worked on in the editor"
+//    - Model
+//        "Vertex and Edge datastructures. NB! Not the Model Instance"
+//    - Model Instance Element(s)
+//        "The concrete verteces and edges present in the Model Instance"
+//    - Editor
+//        "The user experienced part of the program"
+//    - Formation Rule(s)
+//        "Rules specifying if an addition/deletion to/from the model instance is allowed or not"
+//    - Syntax(es)
+//        "The supported (or unsupported) styling scheme(s) and formation rules for models"
+//
+//
+//---------------------------
+// Resposibilities needed:
+//    - Stylus Drawing
+//    - Shape Recognition
+//    - Model Instance Editing 
+//        * Deleting Instance Elements
+//        * Adding Instance Elements
+//            + Formation Rules
+//        * Changing Instance Element properties (e.g. the vertex type)
+//        * Moving Instance Elements
+//    - Styles
+//    - Styled Model Instance Rendering
+//    - 
+//

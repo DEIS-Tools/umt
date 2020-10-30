@@ -1,12 +1,3 @@
-interface Point {
-    x: number;
-    y: number;
-}
-interface PointBounds {
-    topLeft: Point;
-    bottomRight: Point;
-}
-
 // Use this to calculate a circle
 function calcCircle(segment_count, size, offset) {
     var circ: Point[] = [];

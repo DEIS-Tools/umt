@@ -110,15 +110,18 @@ window.addEventListener("load", () => {
 //
 //---------------------------
 // Resposibilities needed:
-//    - Stylus Drawing
-//    - Shape Recognition
+//    - Stylus Drawing ✓
+//    - Shape Recognition ✓
 //    - Model Instance Editing 
 //        * Deleting Instance Elements
+//            + Stylus based input
+//            + Non-stylus input
+//            + Formation Rules
 //        * Adding Instance Elements
+//            + Stylus based input
+//            + Non-stylus input
 //            + Formation Rules
 //        * Changing Instance Element properties (e.g. the vertex type)
 //        * Moving Instance Elements
 //    - Styles
 //    - Styled Model Instance Rendering
-//    - 
-//

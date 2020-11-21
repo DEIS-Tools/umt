@@ -1,43 +1,33 @@
 // TODO: Implement "syntaxes"
-var squarre_shape = calcSquarre(40,100); //[{x:0,y:0},{x:100,y:0},{x:100,y:100},{x:0,y:100}];
-var triangle      = calcTriangle(40,100);
-var circle        = calcCircle(40,50,{x:50,y:50});
+var squarre_shape = calcSquarre(40, 100); //[{x:0,y:0},{x:100,y:0},{x:100,y:100},{x:0,y:100}];
+var triangle = calcTriangle(40, 100);
+var circle = calcCircle(40, 50, { x: 50, y: 50 });
 var recognizableShapes = [squarre_shape, triangle, circle];
 
 let canvas: HTMLCanvasElement | null = document.querySelector("#draw");
-if(canvas) {
+if (canvas) {
     let cd = new CanvasStylusRecognizer(canvas);
     window.addEventListener("resize", () => { cd.resize_func(); });
     window.addEventListener("load", () => {
         // Disable multitouch things 
         // TODO: This should be removed, when more advanced features are in.
         cd.canvas.ontouchstart = (e: any) => {
-            if(e.touches) e = e.touches[0];
-                return false;
+            if (e.touches) e = e.touches[0];
+            return false;
         };
     });
 
     // TODO: This should be removed, when more advanced features are in.
     /* Prevent "dragging" the web page on mobile/touch based platforms */
-    document.body.addEventListener("touchstart", (e) => {
+    let stopDefault = (e: TouchEvent) => {
         if (e.target == cd.canvas) {
-        e.preventDefault();
-        e.stopPropagation();
-        }
-    }, false);
-    document.body.addEventListener("touchend", (e) => {
-        if (e.target == cd.canvas) {
-        e.preventDefault();
-        e.stopPropagation();
-        }
-    }, false);
-    document.body.addEventListener("touchmove", (e) => {
-        if (e.target == cd.canvas) {
-        e.preventDefault();
+            e.preventDefault();
             e.stopPropagation();
         }
-    }, false);
-
+    };
+    document.body.addEventListener("touchstart", stopDefault, false);
+    document.body.addEventListener("touchend", stopDefault, false);
+    document.body.addEventListener("touchmove", stopDefault, false);
 } else {
     console.log("No canvas was found. Please doublecheck your html");
 }

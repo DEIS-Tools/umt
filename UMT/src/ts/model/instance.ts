@@ -1,13 +1,17 @@
 
 // Those edges that are allowed to be freely floating around
 class ModelInstance {
-	verteces: Vertex[];
-	freeFloatingEdges: Edge[]; 
+	public verteces: Vertex[];
+	private freeFloatingEdges: Edge[]; 
 	// TODO: formationRules: InstanceFormationRules;
 
-	constructor() {
+	public constructor() {
 		this.verteces = [];
 		this.freeFloatingEdges = []; 
 	}
-	// TODO: addVertex(v: Vertex) { /* invoke formation rules */ }
+	
+	public addVertex(vertex: Vertex) {
+		/* TODO: invoke formation rules */
+		this.verteces.push(vertex);
+	}
 }

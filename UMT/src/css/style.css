@@ -19,6 +19,7 @@
 	position: absolute;
 	cursor: move;
 	color: #fff;
+	text-shadow: 1px 1px #000;
 	border: 2px solid #606060;
 	/* This is a shorthand of translateX(-50%) and translateY(-50%) */
 	transform: translate(-50%, -50%);

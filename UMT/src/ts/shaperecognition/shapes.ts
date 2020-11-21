@@ -1,5 +1,5 @@
 // Use this to calculate a circle
-function calcCircle(segment_count, size, offset) {
+function calcCircle(segment_count: number, size: number, offset: Point) {
     var circ: Point[] = [];
     var twopi = 2*Math.PI;
     var step = twopi / segment_count;
@@ -25,7 +25,7 @@ function calcCircle(segment_count, size, offset) {
     return circ;
 }
 
-function calcSquarre(segment_count, size) {
+function calcSquarre(segment_count: number, size: number) {
     var sqr: Point[] = [];
     var sideAmnt = (segment_count / 4);
     var seg = size / sideAmnt;
@@ -56,7 +56,7 @@ function calcSquarre(segment_count, size) {
 // \  /
 //  \/
 //
-function calcTriangle(segment_count, size) {
+function calcTriangle(segment_count: number, size: number) {
     var triangle: Point[] = [];
     var sideAmnt = (segment_count / 3);
     var seg = size / sideAmnt;

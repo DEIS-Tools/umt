@@ -12,14 +12,14 @@ class ShapeDrawer {
         this.isDrawing = false;
     }
     /* Ugly drawing */
-    onDown(e): void {
+    onDown(e: MouseEvent): void {
         if(e.button != 0) return;
         e.preventDefault();
         this.isDrawing = true;
         this.ctx.moveTo(e.clientX, e.clientY);
         this.draw(e);
     }
-    onUp(e): void {
+    onUp(e: MouseEvent): void {
         this.isDrawing = false;
         this.drawingDoneCallback();
     }
@@ -29,7 +29,7 @@ class ShapeDrawer {
     clearCanvas(width: number, height: number): void {
       this.ctx.clearRect(0, 0, width, height);
     }
-    draw(e): void {
+    draw(e: MouseEvent): void {
         if(!this.isDrawing) return;
         this.ctx.lineCap = "round";
         this.ctx.lineTo(e.clientX, e.clientY);
@@ -51,7 +51,7 @@ class ShapeDrawer {
 
 };
 
-function operate( array, callback ) {
+function operate( array: any, callback: (e: any) => void ) {
   $.each(array, function(){
   callback( this );
   });

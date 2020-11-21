@@ -4,18 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Model Viewer</title>
-  <link rel="stylesheet" href="src/css/style.css">
+  <link rel="stylesheet" href="src/css/editorStyle.css">
+  <link id="currentSyntaxStyle" rel="stylesheet" href="src/css/defaultSyntax.css">
   <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body>
+  <script src="dist/ts/utils.js"></script>
   <script src="dist/ts/editor/Draggable.js"></script>
   <script src="dist/ts/model/point.js"></script>
   <script src="dist/ts/model/vertex.js"></script>
   <script src="dist/ts/model/instance.js"></script>
   <script src="dist/ts/editor/model_instance_editor.js"></script>
+  <script src="dist/ts/editor/SyntaxEditor.js"></script>
   <button onclick="editor.addVertex()">Add Another Location</button>
   <button onclick="editor.printModel()">Print model</button>
-
-  <!-- div class="vertex" style="position: absolute; left: 200px; top: 200px;" ondrag="console.log('Hello!')">L999999</div -->
+  <button onclick="syntaxEditor.changeStyling('src/css/alternateSyntax.css')">Alternate Syntax Styling</button>
+  <button onclick="syntaxEditor.changeStyling('src/css/defaultSyntax.css')">Default Syntax Styling</button>
 </body>
 </html>

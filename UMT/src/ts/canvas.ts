@@ -25,9 +25,9 @@ if (canvas) {
             e.stopPropagation();
         }
     };
-    document.body.addEventListener("touchstart", stopDefault, false);
-    document.body.addEventListener("touchend", stopDefault, false);
-    document.body.addEventListener("touchmove", stopDefault, false);
+    document.body.addEventListener("touchstart", stopDefault);
+    document.body.addEventListener("touchend", stopDefault);
+    document.body.addEventListener("touchmove", stopDefault);
 } else {
     console.log("No canvas was found. Please doublecheck your html");
 }

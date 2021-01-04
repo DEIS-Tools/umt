@@ -12,9 +12,10 @@ class Draggable {
         this.elmnt = elmnt;
         this.closeEvent = this.closeDragElement.bind(this);
         this.moveEvent = this.elementDrag.bind(this);
-        this.elmnt.addEventListener("mousedown", this.dragMouseDown.bind(this));
+        this.elmnt.addEventListener("mousedown", this.dragMouseDown.bind(this)); // TODO: Do this also for touch events
     }
     dragMouseDown(e: MouseEvent) {
+        if(e.button != 0) return;
         e = e || window.event;
         e.preventDefault();
         // get the mouse cursor position at startup:

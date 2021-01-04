@@ -19,5 +19,6 @@
   "homepage": "https://github.com/DEIS-Tools/umt#readme",
   "devDependencies": {
     "lite-server": "^2.6.1"
-  }
+  },
+  "dependencies": {}
 }

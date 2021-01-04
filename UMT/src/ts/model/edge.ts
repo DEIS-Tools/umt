@@ -1,14 +1,13 @@
 
 // A logical connector between verteces.
 class Edge {
-	public start: Vertex;
-	public end:   Vertex;
+	public start: Connectable;
+	public end:   Connectable;
 	public type:  number;
 
-	public constructor(startVertex: Vertex, endVertex: Vertex, type?: number) {
-		this.start = startVertex;
-		this.end   = endVertex;
+	public constructor(start: Connectable, end: Connectable, type?: number) {
+		this.start = start;
+		this.end   = end;
 		this.type  = type ? type : 0;
-		startVertex.addEdge(this);
 	}
 }

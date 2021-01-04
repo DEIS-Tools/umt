@@ -10,7 +10,7 @@ An intuitive stylus-oriented modeling tool, mainly focused as a teaching aid.
  - Make sure you have node installed (`npm`) 
 
 ```
-npm install --save-dev lite-server
+npm install --save-dev lite-server leader-line-new jquery
 npm init
 tsc
 npm start

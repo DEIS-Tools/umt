@@ -16,7 +16,9 @@ class Connectable extends Draggable {
         this.addEdge(new Edge(this, to));
     }
     public addEdge(edge: Edge) {
-		this.outgoingEdges.push(edge);
+        this.outgoingEdges.push(edge);
+        this.subscribeDragEvent(edge.updateArrowGraphics.bind(edge));
+        edge.end.subscribeDragEvent(edge.updateArrowGraphics.bind(edge));
 	}
 	public removeEdge(edge: Edge) {
 		const index = this.outgoingEdges.indexOf(edge, 0);

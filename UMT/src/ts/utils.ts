@@ -1,4 +1,3 @@
-import * as $ from "jquery";
 // Look here for how to use this construct
 // https://www.typescriptlang.org/docs/handbook/mixins.html
 function applyMixins(derivedCtor: any, baseCtors: any[]) {

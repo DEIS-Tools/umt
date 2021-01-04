@@ -1,15 +1,21 @@
 
+type MoveEvent = ((e: MouseEvent) => void);
+
 class Draggable {
     protected location: Point;
     private mouselocation: Point;
     private elmnt: HTMLElement;
     private closeEvent: () => void;
-    private moveEvent: (e: MouseEvent) => void;
+    private moveEvent: MoveEvent;
+    private moveSubscribers: Map<number, MoveEvent>;
+    private subcounter: number;
 
     constructor(elmnt: HTMLElement, startLocation: Point) {
         this.location = startLocation;
         this.mouselocation = new Point(0,0);
         this.elmnt = elmnt;
+        this.subcounter = 0;
+        this.moveSubscribers = new Map();
         this.closeEvent = this.closeDragElement.bind(this);
         this.moveEvent = this.elementDrag.bind(this);
         this.elmnt.addEventListener("mousedown", this.dragMouseDown.bind(this)); // TODO: Do this also for touch events
@@ -40,8 +46,19 @@ class Draggable {
         this.elmnt.style.left = (this.elmnt.offsetLeft - pos1) + "px";
         this.location.x = this.elmnt.offsetLeft;
         this.location.y = this.elmnt.offsetTop;
+        this.moveSubscribers.forEach(subscriber => { subscriber(e); });
+    }
+    public subscribeDragEvent(event: (e: MouseEvent) => void): number {
+        this.moveSubscribers.set(this.subcounter++, event);
+        return this.subcounter;
+    }
+    public unsubscribeDragEvent(num: number) {
+        this.moveSubscribers.delete(num);
     }
     public getLocation(): Point {
         return this.location;
+    }
+    public getHTMLElement(): HTMLElement {
+        return this.elmnt;
     }
 };

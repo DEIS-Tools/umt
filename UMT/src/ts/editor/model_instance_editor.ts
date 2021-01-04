@@ -1,4 +1,3 @@
-
 // More or less the entire User Interfacing class.
 class ModelInstanceEditor {
 	private modelInstance: ModelInstance;

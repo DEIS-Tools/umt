@@ -1,4 +1,3 @@
-
 // A logical connector between verteces.
 class Edge {
 	public start: Connectable;
@@ -10,6 +9,9 @@ class Edge {
 		this.start = start;
 		this.end   = end;
 		this.type  = type ? type : 0;
-		this.line  = new Arrow(start.getLocation(), end.getLocation());
+		this.line  = new Arrow(start.getHTMLElement(), end.getHTMLElement());
+	}
+	public updateArrowGraphics(e: MouseEvent) {
+		this.line.UpdateGraphics();
 	}
 }

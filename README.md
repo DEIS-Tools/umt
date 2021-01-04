@@ -2,7 +2,7 @@
 
 An intuitive stylus-oriented modeling tool, mainly focused as a teaching aid.
 
-![UMT Logo](android-chrome-512x512.png)
+![UMT Logo](UMT_LOGO_README.png)
 
 # How to run locally
 

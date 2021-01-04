@@ -41,4 +41,7 @@ class Draggable {
         this.location.x = this.elmnt.offsetLeft;
         this.location.y = this.elmnt.offsetTop;
     }
+    public getLocation(): Point {
+        return this.location;
+    }
 };

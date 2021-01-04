@@ -7,7 +7,4 @@ class Vertex extends Connectable {
 		super(startlocation, elmnt);
 		this.type = type ? type : 0;
 	}
-	public getLocation(): Point {
-		return this.location;
-	}
 }

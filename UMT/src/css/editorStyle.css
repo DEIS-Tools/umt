@@ -9,3 +9,7 @@
     border: 2px solid #000;
 }
 
+.clickablePath, .leader-line-line-path {
+	pointer-events: auto !important;
+	cursor: pointer;
+}

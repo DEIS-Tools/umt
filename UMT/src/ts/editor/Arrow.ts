@@ -8,13 +8,9 @@ class Arrow {
     private svgElem: HTMLElement | null;
 
     constructor(start: HTMLElement, end: HTMLElement) {
-        this.graphics = new LeaderLine(start, end, {path: "arc"}); // TODO: User styling
+        this.graphics = new LeaderLine(start, end, {path: "straight"}); // TODO: User styling
         this.svgElem = document.querySelector('body>.leader-line:last-of-type');
-        if(!this.svgElem) {
-            console.log("Something went wrong. Expect weird behavior");
-            return;
-        }
-        this.svgElem.addEventListener("click", this.editGraphics.bind(this));
+        this.svgElem?.addEventListener("click", this.editGraphics.bind(this));
     }
     public UpdateGraphics() {
         this.graphics.position();

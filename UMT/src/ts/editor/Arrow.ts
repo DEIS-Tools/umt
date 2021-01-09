@@ -2,7 +2,6 @@
 /// drawing libraries easier.
 
 // TODO: This should be done via implementation classes instead.
-type yes = HTMLElement | null;
 class Arrow {
     private graphics: LeaderLine;
     private svgElem: HTMLElement | null;
@@ -15,7 +14,7 @@ class Arrow {
     public UpdateGraphics() {
         this.graphics.position();
     }
-    public editGraphics(e: Event) {
-        console.log("You pressed an arrow!");
+    public editGraphics(e: MouseEvent) {
+        
     }
 };

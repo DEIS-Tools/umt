@@ -11,7 +11,7 @@ class ModelInstanceEditor {
 		newvert.className = "vertex";
 		newvert.textContent = "L0";
 		document.body.append(newvert);
-		this.modelInstance.addVertex(new Vertex(new Point(0,0), newvert));
+		this.modelInstance.addVertex(new Vertex(new Point(), newvert));
 	}
 
 	public printModel() {

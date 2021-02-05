@@ -7,10 +7,11 @@ class ModelInstanceEditor {
 	}
 
 	public addVertex() {
+		let locLayer = document.getElementById("locationLayer");
 		let newvert = document.createElement("div");
 		newvert.className = "vertex";
 		newvert.textContent = "L0";
-		document.body.append(newvert);
+		locLayer?.append(newvert);
 		this.modelInstance.addVertex(new Vertex(new Point(), newvert));
 	}
 

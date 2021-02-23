@@ -11,9 +11,11 @@ class Arrow {
         this.svgElem = document.querySelector('body>.leader-line:last-of-type');
         this.svgElem?.addEventListener("click", this.editGraphics.bind(this));
     }
+
     public UpdateGraphics() {
         this.graphics.position();
     }
+    
     public editGraphics(e: MouseEvent) {
         
     }

@@ -20,6 +20,7 @@ class Draggable {
         this.moveEvent = this.elementDrag.bind(this);
         this.elmnt.addEventListener("mousedown", this.dragMouseDown.bind(this)); // TODO: Do this also for touch events
     }
+
     dragMouseDown(e: MouseEvent) {
         if(e.button != 0) return;
         e = e || window.event;
@@ -29,11 +30,13 @@ class Draggable {
         document.addEventListener("mouseup", this.closeEvent);
         document.addEventListener("mousemove", this.moveEvent);
     }
+    
     closeDragElement() {
         // stop moving when mouse button is released:
         document.removeEventListener("mouseup", this.closeEvent);
         document.removeEventListener("mousemove", this.moveEvent);
     }
+
     elementDrag(e: MouseEvent) {
         e = e || window.event;
         e.preventDefault();
@@ -48,16 +51,20 @@ class Draggable {
         this.location.y = this.elmnt.offsetTop;
         this.moveSubscribers.forEach(subscriber => { subscriber(e); });
     }
+
     public subscribeDragEvent(event: (e: MouseEvent) => void): number {
         this.moveSubscribers.set(this.subcounter++, event);
         return this.subcounter;
     }
+
     public unsubscribeDragEvent(num: number) {
         this.moveSubscribers.delete(num);
     }
+
     public getLocation(): Point {
         return this.location;
     }
+
     public getHTMLElement(): HTMLElement {
         return this.elmnt;
     }

@@ -25,6 +25,7 @@ if (canvas) {
             e.stopPropagation();
         }
     };
+    
     document.body.addEventListener("touchstart", stopDefault);
     document.body.addEventListener("touchend", stopDefault);
     document.body.addEventListener("touchmove", stopDefault);

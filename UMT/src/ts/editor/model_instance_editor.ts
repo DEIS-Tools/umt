@@ -1,21 +1,25 @@
 // More or less the entire User Interfacing class.
 class ModelInstanceEditor {
-	private modelInstance: ModelInstance;
+	private static modelInstance: ModelInstance;
 
 	constructor() {
-		this.modelInstance = new ModelInstance();
+		ModelInstanceEditor.modelInstance = new ModelInstance();
 	}
 
-	public addVertex() {
+	public addVertex(type: number) {
 		let newvert = document.createElement("div");
-		newvert.className = "vertex";
-		newvert.textContent = "L0";
+		newvert.className = "vertex"+type;
+		newvert.textContent = "V"+type;
 		document.body.append(newvert);
-		this.modelInstance.addVertex(new Vertex(new Point(), newvert));
+		ModelInstanceEditor.modelInstance.addVertex(new Vertex(new Point(), newvert, type));
+	}
+
+	public addEdge(edge: Edge): Edge | null {
+		return ModelInstanceEditor.modelInstance.addEdge(edge);
 	}
 
 	public printModel() {
-		this.modelInstance.verteces.forEach(vertex => {
+		ModelInstanceEditor.modelInstance.verteces.forEach(vertex => {
 			console.log(`${vertex.getLocation().x}, ${vertex.getLocation().y}`);
 		});
 	}

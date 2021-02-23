@@ -7,4 +7,8 @@ class Vertex extends Connectable {
 		super(startlocation, elmnt);
 		this.type = type ? type : 0;
 	}
+
+	public getType(): number {
+		return this.type;
+	}
 }

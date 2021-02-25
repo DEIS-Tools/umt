@@ -5,18 +5,18 @@ class ModelInstanceEditor {
 	constructor() {
 		ModelInstanceEditor.modelInstance = new ModelInstance();
 	}
-
+  
 	public addVertex(type: number) {
+    let locLayer = document.getElementById("locationLayer");
 		let newvert = document.createElement("div");
 		newvert.className = "vertex"+type;
 		newvert.textContent = "V"+type;
-		document.body.append(newvert);
+		locLayer?.append(newvert);
 		ModelInstanceEditor.modelInstance.addVertex(new Vertex(new Point(), newvert, type));
 	}
 
 	public addEdge(edge: Edge): Edge | null {
 		return ModelInstanceEditor.modelInstance.addEdge(edge);
-	}
 
 	public printModel() {
 		ModelInstanceEditor.modelInstance.verteces.forEach(vertex => {

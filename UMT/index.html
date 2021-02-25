@@ -9,6 +9,8 @@
   <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body oncontextmenu="return false;">
+  <div id="edgeLayer"></div>
+  <div id="locationLayer"></div>
   <script src="node_modules/leader-line-new/leader-line.min.js"></script>
   <script src="dist/ts/utils.js"></script>
   <script src="dist/ts/imports.js"></script>
@@ -23,6 +25,7 @@
   <script src="dist/ts/formation/defaultrules.js"></script>
   <script src="dist/ts/editor/model_instance_editor.js"></script>
   <script src="dist/ts/editor/SyntaxEditor.js"></script>
+  <script src="dist/ts/injectibles/ModelSerializer.js"></script>
   <button onclick="editor.addVertex(0)">Add Vertex #1</button>
   <button onclick="editor.addVertex(1)">Add Vertex #2</button>
   <button onclick="editor.printModel()">Print model</button>

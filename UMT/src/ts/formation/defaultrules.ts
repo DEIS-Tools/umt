@@ -1,4 +1,3 @@
-
 class DefaultFormationRuleset extends InstanceFormationRuleset {
     public OnVertexCreation(vertex: Vertex): Vertex {
         return vertex;

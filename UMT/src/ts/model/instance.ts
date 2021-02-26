@@ -3,15 +3,22 @@
 class ModelInstance {
 	public verteces: Vertex[];
 	private freeFloatingEdges: Edge[]; 
-	// TODO: formationRules: InstanceFormationRules;
+	private formationRules: InstanceFormationRuleset;
 
 	public constructor() {
 		this.verteces = [];
 		this.freeFloatingEdges = []; 
+		this.formationRules = new DefaultFormationRuleset();
 	}
 	
 	public addVertex(vertex: Vertex) {
 		/* TODO: invoke formation rules */
-		this.verteces.push(vertex);
+		var newvert = this.formationRules.OnVertexCreation(vertex);
+		if(newvert)
+			this.verteces.push(newvert);
+	}
+
+	public addEdge(edge: Edge): Edge | null {
+		return this.formationRules.OnEdgeCreation(edge);
 	}
 }

@@ -21,12 +21,13 @@
   <script src="dist/ts/model/point.js"></script>
   <script src="dist/ts/model/vertex.js"></script>
   <script src="dist/ts/model/instance.js"></script>
+  <script src="dist/ts/formation/instanceformationrules.js"></script>
+  <script src="dist/ts/formation/defaultrules.js"></script>
   <script src="dist/ts/editor/model_instance_editor.js"></script>
   <script src="dist/ts/editor/SyntaxEditor.js"></script>
-
   <script src="dist/ts/injectibles/ModelSerializer.js"></script>
-
-  <button onclick="editor.addVertex()">Add Another Location</button>
+  <button onclick="editor.addVertex(0)">Add Vertex #1</button>
+  <button onclick="editor.addVertex(1)">Add Vertex #2</button>
   <button onclick="editor.printModel()">Print model</button>
   <button onclick="syntaxEditor.changeStyling('src/css/alternateSyntax.css')">Alternate Syntax Styling</button>
   <button onclick="syntaxEditor.changeStyling('src/css/defaultSyntax.css')">Default Syntax Styling</button>

@@ -17,7 +17,8 @@ class ModelInstanceEditor {
 
 	public addEdge(edge: Edge): Edge | null {
 		return ModelInstanceEditor.modelInstance.addEdge(edge);
-
+	}
+	
 	public printModel() {
 		ModelInstanceEditor.modelInstance.verteces.forEach(vertex => {
 			console.log(`${vertex.getLocation().x}, ${vertex.getLocation().y}`);

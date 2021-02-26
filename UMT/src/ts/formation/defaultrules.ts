@@ -5,14 +5,6 @@ class DefaultFormationRuleset extends InstanceFormationRuleset {
     }
 
     public OnEdgeCreation(edge: Edge): Edge | null {
-        if((edge.start as Vertex).getType() == 0) {
-            if((edge.end as Vertex).getType() == 1)
-                return edge;
-            return null;
-        }
-        if((edge.end as Vertex).getType() == 0)
-            return edge;
-        return null;
+        return edge;
     }
-
 };

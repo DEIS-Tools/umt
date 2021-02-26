@@ -6,17 +6,13 @@ class Arrow {
     private graphics: LeaderLine;
     private svgElem: HTMLElement | null;
 
-    constructor(start: HTMLElement, end: HTMLElement) {
+    constructor(start: HTMLElement, end: HTMLElement, clickedCallback: (ev: MouseEvent) => any) {
         this.graphics = new LeaderLine(start, end, {path: "straight"}); // TODO: User styling
         this.svgElem = document.querySelector('body>.leader-line:last-of-type');
-        this.svgElem?.addEventListener("click", this.editGraphics.bind(this));
+        this.svgElem?.addEventListener("click", clickedCallback);
     }
 
     public UpdateGraphics() {
         this.graphics.position();
-    }
-    
-    public editGraphics(e: MouseEvent) {
-        
     }
 };

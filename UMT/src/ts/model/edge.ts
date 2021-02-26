@@ -12,11 +12,15 @@ class Edge {
 		this.line  = null;
 	}
 
-	public Create() {
-		this.line  = new Arrow(this.start.getHTMLElement(), this.end.getHTMLElement());
+	public create() {
+		this.line  = new Arrow(this.start.getHTMLElement(), this.end.getHTMLElement(), this.focus.bind(this));
 	}
 
 	public updateArrowGraphics(e: MouseEvent) {
 		this.line?.UpdateGraphics();
 	}
+
+	public focus(e: MouseEvent) {
+        console.debug("You clicked me!"+this.type);
+    }
 }

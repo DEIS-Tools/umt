@@ -21,7 +21,7 @@ class Connectable extends Draggable {
         var newedge = editor.addEdge(edge);
         if(!newedge)
             return;
-        newedge.Create();
+        newedge.create();
         this.outgoingEdges.push(edge);
         this.subscribeDragEvent(edge.updateArrowGraphics.bind(edge));
         edge.end.subscribeDragEvent(edge.updateArrowGraphics.bind(edge));

@@ -1,4 +1,3 @@
-!UMT/dist/
-node_modules/
-.vscode/
-
+UMT/js/
+UMT/node_modules/
+UMT/.vscode/

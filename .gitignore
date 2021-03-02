@@ -1,2 +1,4 @@
-
-UMT/js/
+dist/
+js/
+node_modules/
+.vscode/

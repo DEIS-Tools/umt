@@ -11,14 +11,14 @@ class ModelInstance {
 		this.formationRules = new DefaultFormationRuleset();
 	}
 	
-	public addVertex(vertex: Vertex) {
+	public AddVertex(vertex: Vertex) {
 		/* TODO: invoke formation rules */
 		var newvert = this.formationRules.OnVertexCreation(vertex);
 		if(newvert)
 			this.verteces.push(newvert);
 	}
 
-	public addEdge(edge: Edge): Edge | null {
+	public AddEdge(edge: Edge): Edge | null {
 		return this.formationRules.OnEdgeCreation(edge);
 	}
 }

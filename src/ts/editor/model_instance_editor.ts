@@ -14,15 +14,15 @@ class ModelInstanceEditor {
 		newvert.className = "vertex"+type;
 		newvert.textContent = "V"+this.vertCounter++; // TODO: This vertcounter is not necessarily a good solution
 		locLayer?.append(newvert);
-		ModelInstanceEditor.modelInstance.addVertex(new Vertex(new Point(300, 300), newvert, type));
+		ModelInstanceEditor.modelInstance.AddVertex(new Vertex(new Point(300, 300), newvert, type));
 	}
 
 	public AddEdge(edge: Edge): Edge | null {
-		return ModelInstanceEditor.modelInstance.addEdge(edge);
+		return ModelInstanceEditor.modelInstance.AddEdge(edge);
 	}
 
 	public RemoveSelectedElement() {
-		
+
 	}
 
 	public PrintModel() {

@@ -10,10 +10,6 @@ class ModelInstanceEditor {
 		this.vertCounter = 0;
 	}
   
-	public AddSimpleVertex() {
-		this.AddVertex(0);
-	}
-
 	public AddVertex(type: number) {
     	let locLayer = document.getElementById("locationLayer");
 		let newvert = document.createElement("div");
@@ -27,8 +23,8 @@ class ModelInstanceEditor {
 		return ModelInstanceEditor.modelInstance.AddEdge(edge);
 	}
 
-	public RemoveSelectedElement() {
-		console.error("RemoveSelectedElement");
+	public RemoveSelection() {
+		console.error("RemoveSelection is not implemented yet");
 	}
 
 	public PrintModel() {
@@ -39,8 +35,9 @@ class ModelInstanceEditor {
 
 	public BindKeymapping() {
         ModelInstanceEditor.keymapping = new Map();
-        ModelInstanceEditor.keymapping.set("Delete", 	this.RemoveSelectedElement.bind(this));
-        ModelInstanceEditor.keymapping.set("a", 		this.AddSimpleVertex.bind(this));
+        ModelInstanceEditor.keymapping.set("Delete", 	this.RemoveSelection.bind(this));
+        ModelInstanceEditor.keymapping.set("v", 		this.AddVertex.bind(this, 0));
+		ModelInstanceEditor.keymapping.set("V", 		this.AddVertex.bind(this, 1));
 		document.addEventListener("keydown", ModelInstanceEditor.OnKeyDown);
     }
 

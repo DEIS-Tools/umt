@@ -1,15 +1,18 @@
 // More or less the entire User Interfacing class.
 class ModelInstanceEditor {
 	private static modelInstance: ModelInstance;
-	private static keymapping: Map<string, VoidFunction>;
+	private static keydownmapping: Map<string, VoidFunction>;
+	private static keyupmapping: Map<string, VoidFunction>;
 	private vertCounter: number;
 	private selectedElements: Selectable[];
+	private controlIsDown: boolean;
 
 	constructor() {
 		ModelInstanceEditor.modelInstance = new ModelInstance();
 		this.BindKeymapping();
 		this.vertCounter = 0;
 		this.selectedElements = [];
+		this.controlIsDown = false;
 	}
   
 	public AddVertex(type: number) {
@@ -44,7 +47,8 @@ class ModelInstanceEditor {
 
 	public SelectElement(elemnt: Selectable) {
 		// TODO: Selection of multiple elements
-		this.UnSelectSelectedElements();
+		if(!this.controlIsDown)
+			this.UnSelectSelectedElements();
 		elemnt.OnSelect();
 		this.selectedElements.push(elemnt);
 	}
@@ -57,16 +61,25 @@ class ModelInstanceEditor {
 
 	public BindKeymapping() {
 		// TODO: This should be overridable
-        ModelInstanceEditor.keymapping = new Map();
-        ModelInstanceEditor.keymapping.set("Delete", 	this.RemoveSelection.bind(this));
-        ModelInstanceEditor.keymapping.set("v", 		this.AddVertex.bind(this, 0));
-		ModelInstanceEditor.keymapping.set("V", 		this.AddVertex.bind(this, 1));
+        ModelInstanceEditor.keydownmapping = new Map();
+        ModelInstanceEditor.keydownmapping.set("Delete", 	this.RemoveSelection.bind(this));
+        ModelInstanceEditor.keydownmapping.set("v", 		this.AddVertex.bind(this, 0));
+		ModelInstanceEditor.keydownmapping.set("V", 		this.AddVertex.bind(this, 1));
+		ModelInstanceEditor.keydownmapping.set("Control", 	() => { this.controlIsDown = true; });
 		document.addEventListener("keydown", ModelInstanceEditor.OnKeyDown);
+
+		ModelInstanceEditor.keyupmapping = new Map();
+		ModelInstanceEditor.keyupmapping.set("Control", 	() => { this.controlIsDown = false; });
+		document.addEventListener("keyup", ModelInstanceEditor.OnKeyUp);
     }
 
     public static OnKeyDown(event: KeyboardEvent) {
-        ModelInstanceEditor.keymapping.get(event.key)?.();
+        ModelInstanceEditor.keydownmapping.get(event.key)?.();
     }
+
+	public static OnKeyUp(event: KeyboardEvent) {
+        ModelInstanceEditor.keyupmapping.get(event.key)?.();
+	}
 }
 
 const editor = new ModelInstanceEditor();

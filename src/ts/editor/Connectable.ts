@@ -52,7 +52,7 @@ class Connectable extends Draggable {
     }
 
     public StartConnection(e: MouseEvent) {
-        if(e.button != 2)
+        if(e.button != 2) // TODO: This should be configurable
             return;
         this.isConnecting = true;
         Connectable.inProgressConnection = this;
@@ -63,7 +63,7 @@ class Connectable extends Draggable {
     }
 
     public EndConnection(e: MouseEvent) {
-        if(e.button != 2) 
+        if(e.button != 2)  // TODO: This should be configurable
             return;
         if(this.isConnecting) {
             this.isConnecting = false;

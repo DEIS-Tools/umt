@@ -22,7 +22,6 @@ class Edge extends Selectable {
 	}
 
 	public Focus(e: MouseEvent) {
-        console.debug("You clicked me!"+this.type);
 		editor.SelectElement(this);
     }
 

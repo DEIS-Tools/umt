@@ -21,6 +21,10 @@ class ModelInstanceEditor {
 		return ModelInstanceEditor.modelInstance.addEdge(edge);
 	}
 
+	public RemoveSelectedElement() {
+		
+	}
+
 	public PrintModel() {
 		ModelInstanceEditor.modelInstance.verteces.forEach(vertex => {
 			console.log(`${vertex.GetLocation().x}, ${vertex.GetLocation().y}`);

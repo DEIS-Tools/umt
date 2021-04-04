@@ -1,26 +1,29 @@
 // More or less the entire User Interfacing class.
 class ModelInstanceEditor {
 	private static modelInstance: ModelInstance;
+	private vertCounter: number;
 
 	constructor() {
 		ModelInstanceEditor.modelInstance = new ModelInstance();
+		this.vertCounter = 0;
 	}
   
-	public addVertex(type: number) {
-    let locLayer = document.getElementById("locationLayer");
+	public AddVertex(type: number) {
+    	let locLayer = document.getElementById("locationLayer");
 		let newvert = document.createElement("div");
 		newvert.className = "vertex"+type;
-		newvert.textContent = "V"+type;
+		newvert.textContent = "V"+this.vertCounter++; // TODO: This vertcounter is not necessarily a good solution
 		locLayer?.append(newvert);
-		ModelInstanceEditor.modelInstance.addVertex(new Vertex(new Point(), newvert, type));
+		ModelInstanceEditor.modelInstance.addVertex(new Vertex(new Point(300, 300), newvert, type));
 	}
 
-	public addEdge(edge: Edge): Edge | null {
+	public AddEdge(edge: Edge): Edge | null {
 		return ModelInstanceEditor.modelInstance.addEdge(edge);
 	}
-	public printModel() {
+
+	public PrintModel() {
 		ModelInstanceEditor.modelInstance.verteces.forEach(vertex => {
-			console.log(`${vertex.getLocation().x}, ${vertex.getLocation().y}`);
+			console.log(`${vertex.GetLocation().x}, ${vertex.GetLocation().y}`);
 		});
 	}
 }

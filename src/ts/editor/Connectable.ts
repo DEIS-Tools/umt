@@ -1,38 +1,46 @@
 
 class Connectable extends Draggable {
     private outgoingEdges: 	Edge[];
+    private ingoingEdges: Edge[];
     public isConnecting: boolean;
+    // This means that we can only connect one Connectable at a time.
     static inProgressConnection?: Connectable;
 
     constructor(startlocation: Point, elmnt: HTMLElement) {
         super(elmnt, startlocation);
         this.isConnecting = false;
         this.outgoingEdges = [];
+        this.ingoingEdges = [];
         elmnt.addEventListener("oncontextmenu", () => {return false;});
         elmnt.addEventListener("mouseup", this.EndConnection.bind(this));; // TODO: Do this also for stylus drag events
         elmnt.addEventListener("mousedown", this.StartConnection.bind(this)); // TODO: Do this also for stylus drag events
     }
-
-    public addNewEdge(to: Connectable) {
-        this.addEdge(new Edge(this, to));
+    
+    public AddNewEdge(to: Connectable) {
+        this.AddEdge(new Edge(this, to));
     }
 
-    public addEdge(edge: Edge) {
-        var newedge = editor.addEdge(edge);
+    public AddEdge(edge: Edge) {
+        var newedge = editor.AddEdge(edge);
         if(!newedge)
             return;
-        newedge.create();
+        newedge.Create();
         this.outgoingEdges.push(edge);
-        this.subscribeDragEvent(edge.updateArrowGraphics.bind(edge));
-        edge.end.subscribeDragEvent(edge.updateArrowGraphics.bind(edge));
+        edge.end.ingoingEdges.push(edge);
+        this.SubscribeDragEvent(edge.UpdateArrowGraphics.bind(edge));
+        edge.end.SubscribeDragEvent(edge.UpdateArrowGraphics.bind(edge));
 	}
 
-    public removeEdge(edge: Edge) {
-        const index = this.outgoingEdges.indexOf(edge, 0);
-		if (index > -1)
-		   this.outgoingEdges.splice(index, 1);
-		else
-			console.log("Tried to remove an outgoing edge from vertex, that didn't have it in the outgoingEdges list.");
+    public RemoveEdge(edge: Edge) {
+        const outIndex = this.outgoingEdges.indexOf(edge, 0);
+        const inIndex = this.ingoingEdges.indexOf(edge, 0);
+		if (outIndex > -1)
+		    this.outgoingEdges.splice(outIndex, 1);
+        if(inIndex > -1) 
+            this.ingoingEdges.splice(inIndex, 1);
+
+        if(inIndex <= -1 && outIndex <= -1)
+            console.error("Unable to remove edge from connectable");
 	}
     
     public StartConnection(e: MouseEvent) {
@@ -43,7 +51,7 @@ class Connectable extends Draggable {
     }
     
     public static Connect(start: Connectable, end: Connectable) {
-        start.addNewEdge(end);
+        start.AddNewEdge(end);
     }
 
     public EndConnection(e: MouseEvent) {

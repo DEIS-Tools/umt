@@ -1,7 +1,7 @@
 
 class Connectable extends Draggable {
-    private outgoingEdges: 	Edge[];
-    private ingoingEdges: Edge[];
+    private outgoingEdges: 	[Edge, number][];
+    private ingoingEdges: [Edge, number][];
     public isConnecting: boolean;
     // This means that we can only connect one Connectable at a time.
     static inProgressConnection?: Connectable;
@@ -25,24 +25,32 @@ class Connectable extends Draggable {
         if(!newedge)
             return;
         newedge.Create();
-        this.outgoingEdges.push(edge);
-        edge.end.ingoingEdges.push(edge);
-        this.SubscribeDragEvent(edge.UpdateArrowGraphics.bind(edge));
-        edge.end.SubscribeDragEvent(edge.UpdateArrowGraphics.bind(edge));
+        var startval = this.SubscribeDragEvent(edge.UpdateArrowGraphics.bind(edge));
+        var endval = edge.end.SubscribeDragEvent(edge.UpdateArrowGraphics.bind(edge));
+        this.outgoingEdges.push([edge, startval]);
+        edge.end.ingoingEdges.push([edge, endval]);
 	}
 
     public RemoveEdge(edge: Edge) {
-        const outIndex = this.outgoingEdges.indexOf(edge, 0);
-        const inIndex = this.ingoingEdges.indexOf(edge, 0);
-		if (outIndex > -1)
-		    this.outgoingEdges.splice(outIndex, 1);
-        if(inIndex > -1) 
-            this.ingoingEdges.splice(inIndex, 1);
-
-        if(inIndex <= -1 && outIndex <= -1)
+        const outIndex = this.FindEdge(edge, this.outgoingEdges);
+        const inIndex = this.FindEdge(edge, this.ingoingEdges);
+		if (outIndex[0] > -1) {
+            this.UnsubscribeDragEvent(outIndex[1]);
+		    this.outgoingEdges.splice(outIndex[0], 1);
+        }
+        if(inIndex[0] > -1) {
+            this.UnsubscribeDragEvent(inIndex[1]);
+            this.ingoingEdges.splice(inIndex[0], 1);
+        }
+        if(inIndex[0] <= -1 && outIndex[0] <= -1)
             console.error("Unable to remove edge from connectable");
 	}
     
+    public FindEdge(edge: Edge, collection: [Edge, number][]): [number, number] {
+        var el = collection.find((val: [Edge, number]) => {val[0] == edge});
+        return el ? [collection.indexOf(el, 0), el[1]] : [-1, 0];
+    }
+
     public StartConnection(e: MouseEvent) {
         if(e.button != 2)
             return;

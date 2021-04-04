@@ -26,7 +26,8 @@ class Draggable extends Selectable {
     }
 
     DragMouseDown(e: MouseEvent) {
-        if(e.button != 0) return;
+        if(e.button != 0) 
+            return;
         e = e || window.event;
         e.preventDefault();
         // get the mouse cursor position at startup:

@@ -29,15 +29,24 @@ class ModelInstanceEditor {
 	}
 
 	public RemoveVertex(vert: Vertex) {
-		console.error("RemoveVertex is not implemented yet");
+		ModelInstanceEditor.modelInstance.RemoveVertex(vert);
 	}
 
 	public RemoveEdge(edge: Edge) {
-		console.error("RemoveEdge is not implemented yet");
+		ModelInstanceEditor.modelInstance.RemoveEdge(edge);
 	}
 
 	public RemoveSelection() {
-		console.error("RemoveSelection is not implemented yet");
+		this.selectedElements.forEach((element: Selectable) => { element.OnUnselect(); });
+		this.selectedElements.forEach((element: Selectable) => {
+			if(element instanceof Vertex)
+				this.RemoveVertex(element);
+			else if(element instanceof Edge) // TODO: We should remove selected edges first
+				this.RemoveEdge(element);
+			else
+				console.error("Unable to remove selectable element that is neither an Edge or Vertex");
+		});
+		this.selectedElements = [];
 	}
 
 	public UnSelectSelectedElements() {
@@ -46,7 +55,7 @@ class ModelInstanceEditor {
 	}
 
 	public SelectElement(elemnt: Selectable) {
-		// TODO: Selection of multiple elements
+		// TODO: Selection of multiple elements (ergonimic box select)
 		if(!this.controlIsDown)
 			this.UnSelectSelectedElements();
 		elemnt.OnSelect();
@@ -54,7 +63,7 @@ class ModelInstanceEditor {
 	}
 
 	public PrintModel() {
-		ModelInstanceEditor.modelInstance.verteces.forEach(vertex => {
+		ModelInstanceEditor.modelInstance.vertices.forEach(vertex => {
 			console.log(`${vertex.GetLocation().x}, ${vertex.GetLocation().y}`);
 		});
 	}
@@ -62,13 +71,13 @@ class ModelInstanceEditor {
 	public BindKeymapping() {
 		// TODO: This should be overridable
         ModelInstanceEditor.keydownmapping = new Map();
-        ModelInstanceEditor.keydownmapping.set("Delete", 	this.RemoveSelection.bind(this));
         ModelInstanceEditor.keydownmapping.set("v", 		this.AddVertex.bind(this, 0));
 		ModelInstanceEditor.keydownmapping.set("V", 		this.AddVertex.bind(this, 1));
 		ModelInstanceEditor.keydownmapping.set("Control", 	() => { this.controlIsDown = true; });
 		document.addEventListener("keydown", ModelInstanceEditor.OnKeyDown);
 
 		ModelInstanceEditor.keyupmapping = new Map();
+		ModelInstanceEditor.keyupmapping.set("Delete", 		this.RemoveSelection.bind(this));
 		ModelInstanceEditor.keyupmapping.set("Control", 	() => { this.controlIsDown = false; });
 		document.addEventListener("keyup", ModelInstanceEditor.OnKeyUp);
     }

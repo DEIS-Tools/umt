@@ -1,7 +1,7 @@
 
 class Connectable extends Draggable {
-    private outgoingEdges: 	[Edge, number][];
-    private ingoingEdges: [Edge, number][];
+    protected outgoingEdges: 	[Edge, number][];
+    protected ingoingEdges:     [Edge, number][];
     public isConnecting: boolean;
     // This means that we can only connect one Connectable at a time.
     static inProgressConnection?: Connectable;
@@ -48,6 +48,7 @@ class Connectable extends Draggable {
     
     public FindEdge(edge: Edge, collection: [Edge, number][]): [number, number] {
         var el = collection.find((val: [Edge, number]) => {val[0] == edge});
+        console.log(el?"Element!":"NoElement!");
         return el ? [collection.indexOf(el, 0), el[1]] : [-1, 0];
     }
 

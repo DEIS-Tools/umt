@@ -32,5 +32,9 @@ class Edge extends Selectable {
 	public OnUnselect(): void {
 		this.line?.Unhighlight();
 	}
+
+	public OnRemove() {
+		// Nothing to do. Edges are pretty simple
+	}
 	
 }

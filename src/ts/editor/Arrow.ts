@@ -1,7 +1,5 @@
 /// This is a wrapper class for switching arrow 
 /// drawing libraries easier.
-
-// TODO: This should be done via implementation classes instead.
 class Arrow {
     private graphics: LeaderLine;
     private svgElem: HTMLElement | null;
@@ -14,5 +12,13 @@ class Arrow {
 
     public UpdateGraphics() {
         this.graphics.position();
+    }
+
+    public Highlight() {
+        this.graphics.dash = {animation: true};
+    }
+
+    public Unhighlight() {
+        this.graphics.dash = false;
     }
 };

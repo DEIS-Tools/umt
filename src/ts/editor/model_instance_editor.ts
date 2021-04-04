@@ -3,11 +3,13 @@ class ModelInstanceEditor {
 	private static modelInstance: ModelInstance;
 	private static keymapping: Map<string, VoidFunction>;
 	private vertCounter: number;
+	private selectedElements: Selectable[];
 
 	constructor() {
 		ModelInstanceEditor.modelInstance = new ModelInstance();
 		this.BindKeymapping();
 		this.vertCounter = 0;
+		this.selectedElements = [];
 	}
   
 	public AddVertex(type: number) {
@@ -23,8 +25,28 @@ class ModelInstanceEditor {
 		return ModelInstanceEditor.modelInstance.AddEdge(edge);
 	}
 
+	public RemoveVertex(vert: Vertex) {
+		console.error("RemoveVertex is not implemented yet");
+	}
+
+	public RemoveEdge(edge: Edge) {
+		console.error("RemoveEdge is not implemented yet");
+	}
+
 	public RemoveSelection() {
 		console.error("RemoveSelection is not implemented yet");
+	}
+
+	public UnSelectSelectedElements() {
+		this.selectedElements.forEach((element: Selectable) => { element.OnUnselect(); });
+		this.selectedElements = [];
+	}
+
+	public SelectElement(elemnt: Selectable) {
+		// TODO: Selection of multiple elements
+		this.UnSelectSelectedElements();
+		elemnt.OnSelect();
+		this.selectedElements.push(elemnt);
 	}
 
 	public PrintModel() {
@@ -34,6 +56,7 @@ class ModelInstanceEditor {
 	}
 
 	public BindKeymapping() {
+		// TODO: This should be overridable
         ModelInstanceEditor.keymapping = new Map();
         ModelInstanceEditor.keymapping.set("Delete", 	this.RemoveSelection.bind(this));
         ModelInstanceEditor.keymapping.set("v", 		this.AddVertex.bind(this, 0));

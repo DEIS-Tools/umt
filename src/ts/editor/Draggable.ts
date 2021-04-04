@@ -1,7 +1,7 @@
 
 type MoveEvent = ((e: MouseEvent) => void);
 
-class Draggable {
+class Draggable extends Selectable {
     protected location: Point;
     private mouselocation: Point;
     private elmnt: HTMLElement;
@@ -11,6 +11,7 @@ class Draggable {
     private subcounter: number;
 
     constructor(elmnt: HTMLElement, startLocation: Point) {
+        super();
         this.location = startLocation;
         this.mouselocation = new Point();
         this.subcounter = 0;
@@ -69,5 +70,12 @@ class Draggable {
 
     public GetHTMLElement(): HTMLElement {
         return this.elmnt;
+    }
+
+    public OnSelect(): void {
+        throw new Error("Method not implemented.");
+    }
+    public OnUnselect(): void {
+        throw new Error("Method not implemented.");
     }
 };

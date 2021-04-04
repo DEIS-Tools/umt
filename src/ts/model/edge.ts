@@ -1,11 +1,12 @@
 // A logical connector between verteces.
-class Edge {
+class Edge extends Selectable {
 	public start: Connectable;
 	public end:   Connectable;
 	public type:  number;
 	public line:  Arrow | null;
 
 	public constructor(start: Connectable, end: Connectable, type?: number) {
+		super();
 		this.start = start;
 		this.end   = end;
 		this.type  = type ? type : 0;
@@ -22,5 +23,15 @@ class Edge {
 
 	public Focus(e: MouseEvent) {
         console.debug("You clicked me!"+this.type);
+		editor.SelectElement(this);
     }
+
+	public OnSelect(): void {
+		this.line?.Highlight();
+	}
+
+	public OnUnselect(): void {
+		this.line?.Unhighlight();
+	}
+	
 }

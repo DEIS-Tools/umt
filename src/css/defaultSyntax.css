@@ -34,3 +34,7 @@
 	border: 4px solid #FF7E00;
 	/* transition: border 0.2s, background-color 0.2s, height 0.05s, width 0.3s; */
 }
+
+.vertexselected {
+	border: 4px solid #FF7E00;
+}

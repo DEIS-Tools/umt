@@ -21,6 +21,7 @@ class Draggable extends Selectable {
         this.elmnt.style.left = this.location.x + "px";
         this.closeEvent = this.CloseDragElement.bind(this);
         this.moveEvent = this.ElementDrag.bind(this);
+        this.elmnt.addEventListener("click", this.Focus.bind(this));
         this.elmnt.addEventListener("mousedown", this.DragMouseDown.bind(this)); // TODO: Do this also for touch events
     }
 
@@ -72,10 +73,15 @@ class Draggable extends Selectable {
         return this.elmnt;
     }
 
-    public OnSelect(): void {
-        throw new Error("Method not implemented.");
+    public Focus() {
+        editor.SelectElement(this);
     }
+
+    public OnSelect(): void {
+        this.elmnt.classList.add("vertexselected");
+    }
+
     public OnUnselect(): void {
-        throw new Error("Method not implemented.");
+        this.elmnt.classList.remove("vertexselected");
     }
 };

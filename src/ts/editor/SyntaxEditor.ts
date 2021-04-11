@@ -1,10 +1,6 @@
 
 class SyntaxEditor {
-
-    constructor() {
-        // Nothing much so far
-    }
-    changeStyling(newStyleSheet: string) {
+    ChangeStyling(newStyleSheet: string) {
         let styleLink = document.getElementById("currentSyntaxStyle");
         if(styleLink) {
             styleLink.setAttribute("href", newStyleSheet);

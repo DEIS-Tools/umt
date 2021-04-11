@@ -32,7 +32,6 @@
 	border: 4px solid #fc6907;
 }
 
-/* arrows/connectors */
-.edge {
-
+.vertexselected {
+	border: 4px solid #FF7E00;
 }

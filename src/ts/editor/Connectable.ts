@@ -1,53 +1,70 @@
 
 class Connectable extends Draggable {
-    private outgoingEdges: 	Edge[];
+    protected outgoingEdges: 	[Edge, number][];
+    protected ingoingEdges:     [Edge, number][];
     public isConnecting: boolean;
+    // This means that we can only connect one Connectable at a time.
     static inProgressConnection?: Connectable;
 
     constructor(startlocation: Point, elmnt: HTMLElement) {
         super(elmnt, startlocation);
         this.isConnecting = false;
         this.outgoingEdges = [];
+        this.ingoingEdges = [];
         elmnt.addEventListener("oncontextmenu", () => {return false;});
         elmnt.addEventListener("mouseup", this.EndConnection.bind(this));; // TODO: Do this also for stylus drag events
         elmnt.addEventListener("mousedown", this.StartConnection.bind(this)); // TODO: Do this also for stylus drag events
     }
-
-    public addNewEdge(to: Connectable) {
-        this.addEdge(new Edge(this, to));
+    
+    public AddNewEdge(to: Connectable) {
+        this.AddEdge(new Edge(this, to));
     }
 
-    public addEdge(edge: Edge) {
-        var newedge = editor.addEdge(edge);
+    public AddEdge(edge: Edge) {
+        var newedge = editor.AddEdge(edge);
         if(!newedge)
             return;
-        newedge.create();
-        this.outgoingEdges.push(edge);
-        this.subscribeDragEvent(edge.updateArrowGraphics.bind(edge));
-        edge.end.subscribeDragEvent(edge.updateArrowGraphics.bind(edge));
+        newedge.Create();
+        var startval = this.SubscribeDragEvent(edge.UpdateArrowGraphics.bind(edge));
+        var endval = edge.end.SubscribeDragEvent(edge.UpdateArrowGraphics.bind(edge));
+        this.outgoingEdges.push([edge, startval]);
+        edge.end.ingoingEdges.push([edge, endval]);
 	}
 
-    public removeEdge(edge: Edge) {
-        const index = this.outgoingEdges.indexOf(edge, 0);
-		if (index > -1)
-		   this.outgoingEdges.splice(index, 1);
-		else
-			console.log("Tried to remove an outgoing edge from vertex, that didn't have it in the outgoingEdges list.");
+    public RemoveEdge(edge: Edge) {
+        const outIndex = this.FindEdge(edge, this.outgoingEdges);
+        const inIndex = this.FindEdge(edge, this.ingoingEdges);
+		if (outIndex[0] > -1) {
+            this.UnsubscribeDragEvent(outIndex[1]);
+		    this.outgoingEdges.splice(outIndex[0], 1);
+        }
+        if(inIndex[0] > -1) {
+            this.UnsubscribeDragEvent(inIndex[1]);
+            this.ingoingEdges.splice(inIndex[0], 1);
+        }
+        if(inIndex[0] <= -1 && outIndex[0] <= -1)
+            console.error("Unable to remove edge from connectable");
 	}
     
+    public FindEdge(edge: Edge, collection: [Edge, number][]): [number, number] {
+        var el = collection.find((val: [Edge, number]) => {val[0] == edge});
+        console.log(el?"Element!":"NoElement!");
+        return el ? [collection.indexOf(el, 0), el[1]] : [-1, 0];
+    }
+
     public StartConnection(e: MouseEvent) {
-        if(e.button != 2)
+        if(e.button != 2) // TODO: This should be configurable
             return;
         this.isConnecting = true;
         Connectable.inProgressConnection = this;
     }
     
     public static Connect(start: Connectable, end: Connectable) {
-        start.addNewEdge(end);
+        start.AddNewEdge(end);
     }
 
     public EndConnection(e: MouseEvent) {
-        if(e.button != 2) 
+        if(e.button != 2)  // TODO: This should be configurable
             return;
         if(this.isConnecting) {
             this.isConnecting = false;

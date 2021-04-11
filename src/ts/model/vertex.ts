@@ -11,4 +11,9 @@ class Vertex extends Connectable {
 	public getType(): number {
 		return this.type;
 	}
+
+	public OnRemove() {
+		this.outgoingEdges.forEach((edge: [Edge, number]) => {this.RemoveEdge(edge[0]);});
+		this.ingoingEdges .forEach((edge: [Edge, number]) => {this.RemoveEdge(edge[0]);});
+	}
 }

@@ -19,7 +19,7 @@
   "homepage": "https://github.com/DEIS-Tools/umt#readme",
   "devDependencies": {
     "@types/jquery": "^3.5.5",
-    "jquery": "^3.5.1",
+    "jquery": "^3.6.0",
     "leader-line": "^1.0.5",
     "leader-line-new": "^1.1.9",
     "leader-line-types": "^1.0.5-2",

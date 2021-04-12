@@ -1,7 +1,7 @@
 
 type MoveEvent = ((e: MouseEvent) => void);
 
-class Draggable {
+class Draggable extends Selectable {
     protected location: Point;
     private mouselocation: Point;
     private elmnt: HTMLElement;
@@ -11,18 +11,23 @@ class Draggable {
     private subcounter: number;
 
     constructor(elmnt: HTMLElement, startLocation: Point) {
+        super();
         this.location = startLocation;
-        this.mouselocation = new Point(0,0);
-        this.elmnt = elmnt;
+        this.mouselocation = new Point();
         this.subcounter = 0;
         this.moveSubscribers = new Map();
-        this.closeEvent = this.closeDragElement.bind(this);
-        this.moveEvent = this.elementDrag.bind(this);
-        this.elmnt.addEventListener("mousedown", this.dragMouseDown.bind(this)); // TODO: Do this also for touch events
+        this.elmnt = elmnt;
+        this.elmnt.style.top = this.location.y + "px";
+        this.elmnt.style.left = this.location.x + "px";
+        this.closeEvent = this.CloseDragElement.bind(this);
+        this.moveEvent = this.ElementDrag.bind(this);
+        this.elmnt.addEventListener("click", this.Focus.bind(this));
+        this.elmnt.addEventListener("mousedown", this.DragMouseDown.bind(this)); // TODO: Do this also for touch events
     }
 
-    dragMouseDown(e: MouseEvent) {
-        if(e.button != 0) return;
+    DragMouseDown(e: MouseEvent) {
+        if(e.button != 0) 
+            return;
         e = e || window.event;
         e.preventDefault();
         // get the mouse cursor position at startup:
@@ -31,13 +36,13 @@ class Draggable {
         document.addEventListener("mousemove", this.moveEvent);
     }
     
-    closeDragElement() {
+    CloseDragElement() {
         // stop moving when mouse button is released:
         document.removeEventListener("mouseup", this.closeEvent);
         document.removeEventListener("mousemove", this.moveEvent);
     }
 
-    elementDrag(e: MouseEvent) {
+    ElementDrag(e: MouseEvent) {
         e = e || window.event;
         e.preventDefault();
         // calculate the new cursor position:
@@ -52,20 +57,32 @@ class Draggable {
         this.moveSubscribers.forEach(subscriber => { subscriber(e); });
     }
 
-    public subscribeDragEvent(event: (e: MouseEvent) => void): number {
+    public SubscribeDragEvent(event: (e: MouseEvent) => void): number {
         this.moveSubscribers.set(this.subcounter++, event);
         return this.subcounter;
     }
 
-    public unsubscribeDragEvent(num: number) {
+    public UnsubscribeDragEvent(num: number) {
         this.moveSubscribers.delete(num);
     }
 
-    public getLocation(): Point {
+    public GetLocation(): Point {
         return this.location;
     }
 
-    public getHTMLElement(): HTMLElement {
+    public GetHTMLElement(): HTMLElement {
         return this.elmnt;
+    }
+
+    public Focus() {
+        editor.SelectElement(this);
+    }
+
+    public OnSelect(): void {
+        this.elmnt.classList.add("vertexselected");
+    }
+
+    public OnUnselect(): void {
+        this.elmnt.classList.remove("vertexselected");
     }
 };
